@@ -1,6 +1,6 @@
 {
-  "name": "@ai-sdk/openai-compatible",
-  "version": "1.0.32",
+  "name": "@nicksonyap/ai-sdk-openai-compatible",
+  "version": "1.0.32-pdf-support",
   "license": "Apache-2.0",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -60,10 +60,10 @@
   "homepage": "https://ai-sdk.dev/docs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vercel/ai.git"
+    "url": "git+https://github.com/nicksonyap/ai-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/vercel/ai/issues"
+    "url": "https://github.com/nicksonyap/ai-sdk/issues"
   },
   "keywords": [
     "ai"
