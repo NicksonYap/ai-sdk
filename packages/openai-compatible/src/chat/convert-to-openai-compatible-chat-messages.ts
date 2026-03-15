@@ -78,7 +78,26 @@ export function convertToOpenAICompatibleChatMessages(
                     ...partMetadata,
                   };
                 }
-                
+
+                // Video support
+                if (part.mediaType.startsWith('video/')) {
+                  const mediaType =
+                    part.mediaType === 'video/*'
+                      ? 'video/mp4'
+                      : part.mediaType;
+
+                  return {
+                    type: 'image_url',
+                    image_url: {
+                      url:
+                        part.data instanceof URL
+                          ? part.data.toString()
+                          : `data:${mediaType};base64,${convertToBase64(part.data)}`,
+                    },
+                    ...partMetadata,
+                  };
+                }
+
                 // Throw error for unsupported types
                 throw new UnsupportedFunctionalityError({
                   functionality: `file part media type ${part.mediaType}`,
