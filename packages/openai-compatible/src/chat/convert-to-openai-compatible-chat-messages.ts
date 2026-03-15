@@ -87,12 +87,13 @@ export function convertToOpenAICompatibleChatMessages(
                       : part.mediaType;
 
                   return {
-                    type: 'image_url',
-                    image_url: {
+                    type: 'input_video',
+                    input_video: {
                       url:
                         part.data instanceof URL
                           ? part.data.toString()
                           : `data:${mediaType};base64,${convertToBase64(part.data)}`,
+                      mime_type: mediaType,
                     },
                     ...partMetadata,
                   };

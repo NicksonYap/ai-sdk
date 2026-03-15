@@ -1,6 +1,6 @@
 {
   "name": "@nicksonyap/ai-sdk-openai-compatible",
-  "version": "1.0.32-pdf-video-support",
+  "version": "1.0.32-pdf-video-support-0.0.1",
   "license": "Apache-2.0",
   "sideEffects": false,
   "main": "./dist/index.js",

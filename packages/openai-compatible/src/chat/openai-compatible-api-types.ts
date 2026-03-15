@@ -29,11 +29,20 @@ export interface OpenAICompatibleUserMessage
 export type OpenAICompatibleContentPart =
   | OpenAICompatibleContentPartText
   | OpenAICompatibleContentPartImage
-  | OpenAICompatibleContentPartFile;
+  | OpenAICompatibleContentPartFile
+  | OpenAICompatibleContentPartInputVideo;
 
 export interface OpenAICompatibleContentPartImage extends JsonRecord {
   type: 'image_url';
   image_url: { url: string };
+}
+
+export interface OpenAICompatibleContentPartInputVideo extends JsonRecord {
+  type: 'input_video';
+  input_video: {
+    url: string;  // data URL or regular URL
+    mime_type?: string;
+  };
 }
 
 export interface OpenAICompatibleContentPartFile extends JsonRecord {
