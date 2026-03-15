@@ -43,6 +43,24 @@ export function convertToOpenAICompatibleChatMessages(
                 return { type: 'text', text: part.text, ...partMetadata };
               }
               case 'file': {
+                // PDF support
+                if (part.mediaType === 'application/pdf') {
+                  if (part.data instanceof URL) {
+                    throw new UnsupportedFunctionalityError({
+                      functionality: 'PDF file parts with URLs',
+                    });
+                  }
+                  return {
+                    type: 'file',
+                    file: {
+                      filename: part.filename ?? 'document.pdf',
+                      file_data: `data:application/pdf;base64,${convertToBase64(part.data)}`,
+                    },
+                    ...partMetadata,
+                  };
+                }
+                
+                // Image support
                 if (part.mediaType.startsWith('image/')) {
                   const mediaType =
                     part.mediaType === 'image/*'
@@ -59,11 +77,12 @@ export function convertToOpenAICompatibleChatMessages(
                     },
                     ...partMetadata,
                   };
-                } else {
-                  throw new UnsupportedFunctionalityError({
-                    functionality: `file part media type ${part.mediaType}`,
-                  });
                 }
+                
+                // Throw error for unsupported types
+                throw new UnsupportedFunctionalityError({
+                  functionality: `file part media type ${part.mediaType}`,
+                });
               }
             }
           }),
